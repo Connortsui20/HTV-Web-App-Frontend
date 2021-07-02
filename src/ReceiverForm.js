@@ -11,14 +11,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 
-export default function ReceiverForm({ productName, submitForm, theme }) {
+export default function ReceiverForm({ voucherCode, productName, submitForm, theme }) {
 
 
     const [details, setDetails] = useState({ block: "", floor: "", receiver: "", phone: "", });
 
     const submitLogin = (event) => {
         event.preventDefault(); //prevent page from re-rendering
-        submitForm(details);
+        submitForm(voucherCode, details);
         console.log("Form Submitted");
     }
 

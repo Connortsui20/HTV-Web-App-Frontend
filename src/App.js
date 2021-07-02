@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
 import CongratsImg from "./images/img_congratulations@3x.png";
 import Airpods from "./images/airpodspng.png"
@@ -8,6 +9,10 @@ import Airpods from "./images/airpodspng.png"
 import ReceiverForm from "./ReceiverForm"
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 
+import FormPage from './FormPage';
+import SuccessPage from './SuccessPage';
+
+import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -109,26 +114,33 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
 
-
-
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-
+    const theme = useStyles();
 
     const [productImage, setProductImage] = useState(Airpods);
     const [productName, setProductName] = useState("AirPods Pro");
-    const [voucherCode, setVoucherCode] = useState("191");
+    const voucherCode = "";
 
     const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
+    const [voucherStatus, setVoucherStatus] = useState("");
+    const [submitState, setSubmitState] = useState(false);
 
 
-    const theme = useStyles();
 
-    const submitForm = async (details) => {
-        const { newVoucher, error } = await SubmitVoucher(voucherCode, details);
-        if (error === null) {
+
+    const submitForm = async (voucherCode, details) => {
+        const { newVoucher, postError } = await SubmitVoucher(voucherCode, details);
+        console.log(postError);
+        if (postError === null) {
             if (newVoucher.status === 'SUBMITTED') {
-
-
+                setVoucherStatus("SUBMITTED");
+                setReceiverInfo({ 
+                    block: newVoucher.block, 
+                    floor: newVoucher.floor, 
+                    receiver: newVoucher.receiver, 
+                    phone: newVoucher.phone, });
+                setSubmitState(true);    
+            } else {
+                console.error("%c SOMETHING IS VERY WRONG", "color: green; font-weight: bold")
             }
 
             // set receiver data
@@ -141,14 +153,25 @@ function App() {
 
     }
 
+    const routes = { //all url routes
+        "/voucher/:code": ({code}) => 
+        (!submitState) ?
+        (<FormPage voucherCode={code} submitState={submitState} submitForm={submitForm} 
+        productName={productName} productImage={productImage} theme={theme}
+        />) : (<SuccessPage receiverInfo={receiverInfo} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme}/>)
+        
+        ,
+        "/error": () => <div>There is an error</div>,
+    };
+
+
+    const routeResult = useRoutes(routes); //hook for hookrouter, routes are states that get changed by routeResult
+
     return (
-        <div>
-            <div className={theme.congratsScreen}>
-                <img className={theme.prize} src={productImage} alt="Prize" />
-            </div>
-            <div>
-                <ReceiverForm productName={productName} submitForm={submitForm} theme={theme} />
-            </div>
+        <div className="App">
+            <A href="/voucher/:code"></A>
+            <A href="/error"></A>
+        {routeResult}
         </div>
     );
 }
