@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import CongratsImg from "./images/img_congratulations@3x.png";
 import Airpods from "./images/airpodspng.png"
 
-import FormSubmit from "./FormSubmit"
+import ReceiverForm from "./ReceiverForm"
+import SubmitVoucher from './apiFunctions/SubmitVoucher';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
         color: "black",
         // alignItems: "center",
         // justifyContent: "center",
-        margin: theme.spacing(2, 0),
+        margin: theme.spacing(3, 0, 0, 0),
     },
 
     emptyButton: { //when there is not enough information in the text fields
@@ -108,25 +109,45 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
 
+
+
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-    const [voucherCode, setVoucherCode] = useState();
 
-    const [status, setStatus] = useState();
-    const [block, setBlock] = useState();
-    const [floor, setFloor] = useState();
-    const [receiver, setReceiever] = useState();
-    const [phone, setPhone] = useState();
+    const [productImage, setProductImage] = useState(Airpods);
+    const [productName, setProductName] = useState("AirPods Pro");
+    const [voucherCode, setVoucherCode] = useState("191");
+
+    const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
+
 
     const theme = useStyles();
+
+    const submitForm = async (details) => {
+        const { newVoucher, error } = await SubmitVoucher(voucherCode, details);
+        if (error === null) {
+            if (newVoucher.status === 'SUBMITTED') {
+
+
+            }
+
+            // set receiver data
+            // then change page to show all details
+
+        } else {
+            
+            //handle error / return error page
+        }
+
+    }
 
     return (
         <div>
             <div className={theme.congratsScreen}>
-                <img className={theme.prize} src={Airpods} alt="Prize" />
+                <img className={theme.prize} src={productImage} alt="Prize" />
             </div>
             <div>
-                <FormSubmit theme={theme} />
+                <ReceiverForm productName={productName} submitForm={submitForm} theme={theme} />
             </div>
         </div>
     );

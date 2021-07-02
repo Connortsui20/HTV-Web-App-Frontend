@@ -1,0 +1,32 @@
+import axios from 'axios';
+
+
+export default async function SubmitVoucher(voucherCode, details) {
+
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
+    let newVoucher = {};
+    let postError = null;
+
+    try {
+        const { data } = await axios.put(`${BACKEND_URL}/vouchers/updatevoucher/${voucherCode}`, {
+            block: details.block,
+            floor: details.floor,
+            receiver: details.receiver,
+            phone: details.phone,
+        });
+        console.log("%c Voucher Update Success: ", "color: green; font-weight: bold", data);
+        newVoucher = data;
+    } catch (error) {
+        console.error("%c Voucher Update Failure: ", "color: yellow; font-weight: bold", error);
+        postError = error; 
+    }
+
+    return ({ //return object to use in App
+        newVoucher,
+        postError,
+    });
+
+}
+
+//?voucherCode=${voucherCode}
