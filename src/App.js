@@ -16,24 +16,36 @@ import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
 
 const useStyles = makeStyles((theme) => ({
 
-    congratsScreen: {
-        border: "1px solid blue",
-        width: "20%",
+    container: {
+        // border: "1px solid blue",
+        // width: "20%",
         display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+
         backgroundImage: `url(${CongratsImg})`,
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "center",
-        // alignItems: "center",
-        // justifyContent: "center", 
+        // height: "100%",
+        height: "2000px",
+        //position: "relative",
+        border: "3px solid green",
     },
 
     prize: {
 
-        width: "20%",
-        display: "flex",
-        marginRight: "auto",
-        marginLeft: "auto",
-        marginTop: "60%",
+        // width: "20%",
+        // display: "flex",
+        // marginRight: "auto",
+        // marginLeft: "auto",
+        // marginTop: "60%",
+        height: "400px",
+        // margin: "0",
+        // position: "absolute",
+        // top: "50%",
+        // //left: "50%",
+        // msTransform: "translate(-50%)", //what is this
+        // transform: "translate(-50%)",
     },
 
     form: { //form text box
@@ -155,13 +167,35 @@ function App() {
 
         const { voucher, findError } = await ValidateVoucher(code);
         if (!findError) { //! !findError bc I have no idea if its null or undefined
-            console.log(voucher);
-            if (voucher.status === "PENDING") {
-                console.log("Voucher is valid to be submitted, code:", code);
-                setVoucherCode(code);
-            } else {
-                console.log("Voucher is not valid, status is:", voucher.status);
+            setVoucherCode(code);
+            // if (voucher.status === "PENDING") {
+            //     console.log("Voucher is valid to be submitted, code:", code);
+            //     setVoucherStatus("PENDING");
+            //     setVoucherCode(code);
+            // } else {
+            //     console.log("Voucher is not valid, status is:", voucher.status);
+            // }
+            switch (voucher.status) { //? There is probably a better way to do this
+                case "PENDING":
+                    setVoucherStatus("PENDING");
+                    break;
+                case "SUBMITTED":
+                    setVoucherStatus("SUBMITTED");
+                    setSubmitState(true);
+                    break;
+                case "DELIVERING":
+                    setVoucherStatus("DELIVERING");
+                    setSubmitState(true);
+                    break;
+                case "DELIVERED":
+                    setVoucherStatus("DELIVERED");
+                    setSubmitState(true);
+                    break;
+                default: 
+                    console.error("something went wrong with the status");
             }
+            console.log(voucherStatus);
+
         } else {
             console.error("1error with the voucher code", findError);
         }
@@ -175,7 +209,7 @@ function App() {
                 (<FormPage code={code} checkVoucherStatus={checkVoucherStatus}
                     voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
                     productName={productName} productImage={productImage} theme={theme}
-                />) : (<SuccessPage receiverInfo={receiverInfo} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)
+                />) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)
         ,
         "/error": () => <div>There is an error</div>,
     };

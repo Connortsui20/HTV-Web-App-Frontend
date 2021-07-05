@@ -9,7 +9,7 @@ export default function FormPage({ code, checkVoucherStatus, voucherCode, submit
         <div>
             {(voucherCode !== "") ? (
                 <div>
-                    <div className={theme.congratsScreen}>
+                    <div className={theme.container}>
                         <img className={theme.prize} src={productImage} alt="Prize" />
                     </div>
                     <div>

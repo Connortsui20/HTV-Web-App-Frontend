@@ -1,9 +1,9 @@
-export default function SuccessPage({ receiverInfo, voucherCode, productName, productImage, theme }) {
+export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, productName, productImage, theme }) {
 
     return (
         <div>
 
-            <div className={theme.congratsScreen}>
+            <div className={theme.container}>
                 <img className={theme.prize} src={productImage} alt="Prize" />
             </div>
             <div>
@@ -12,9 +12,11 @@ export default function SuccessPage({ receiverInfo, voucherCode, productName, pr
                 {receiverInfo.receiver}
                 {receiverInfo.phone}
             </div>
-
             <div>
-                voucher code is: {voucherCode}, product name is: {productName}
+                voucher status is: {voucherStatus}
+            </div>
+            <div>
+                voucher code is (dont need): {voucherCode}, product name is: {productName}
             </div>
         </div>
 
