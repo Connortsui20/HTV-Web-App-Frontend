@@ -6,11 +6,14 @@ import Button from "@material-ui/core/Button";
 import CongratsImg from "./images/img_congratulations@3x.png";
 import Airpods from "./images/airpodspng.png"
 
-import ReceiverForm from "./ReceiverForm"
+import ReceiverForm from "./components/ReceiverForm";
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
+import ValidateVoucher from './apiFunctions/ValidateVoucher';
 
-import FormPage from './FormPage';
-import SuccessPage from './SuccessPage';
+import DefaultPage from './pages/DefaultPage';
+import FormPage from './pages/FormPage';
+import SuccessPage from './pages/SuccessPage';
+import NoPageFound from './pages/NoPageFound';
 
 import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
 
@@ -26,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
         // alignItems: "center",
         // justifyContent: "center", 
     },
-
 
     prize: {
 
@@ -118,7 +120,7 @@ function App() {
 
     const [productImage, setProductImage] = useState(Airpods);
     const [productName, setProductName] = useState("AirPods Pro");
-    const voucherCode = "";
+    const [voucherCode, setVoucherCode] = useState(""); //TODO make this a hook instead
 
     const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
     const [voucherStatus, setVoucherStatus] = useState("");
@@ -126,11 +128,9 @@ function App() {
 
 
 
-
     const submitForm = async (voucherCode, details) => {
-        const { newVoucher, postError } = await SubmitVoucher(voucherCode, details);
-        console.log(postError);
-        if (postError === null) {
+        const { newVoucher, updateError } = await SubmitVoucher(voucherCode, details);
+        if (updateError === null) {
             if (newVoucher.status === 'SUBMITTED') {
                 setVoucherStatus("SUBMITTED");
                 setReceiverInfo({ 
@@ -153,13 +153,18 @@ function App() {
 
     }
 
+
+
+
+
     const routes = { //all url routes
-        "/voucher/:code": ({code}) => 
+        "/:code": ({code}) => <DefaultPage code={code} ValidateVoucher={ValidateVoucher} setVoucherCode={setVoucherCode}/>
+        ,
+        "/voucher/:code": () => 
         (!submitState) ?
-        (<FormPage voucherCode={code} submitState={submitState} submitForm={submitForm} 
+        (<FormPage voucherCode={voucherCode} submitState={submitState} submitForm={submitForm} 
         productName={productName} productImage={productImage} theme={theme}
         />) : (<SuccessPage receiverInfo={receiverInfo} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme}/>)
-        
         ,
         "/error": () => <div>There is an error</div>,
     };
@@ -169,9 +174,11 @@ function App() {
 
     return (
         <div className="App">
+            {}
+            
             <A href="/voucher/:code"></A>
             <A href="/error"></A>
-        {routeResult}
+        {routeResult || <NoPageFound />}
         </div>
     );
 }

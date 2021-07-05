@@ -1,4 +1,4 @@
-import ReceiverForm from "./ReceiverForm"
+import ReceiverForm from "../components/ReceiverForm"
 
 
 export default function FormPage({ voucherCode, submitState, submitForm, productName, productImage, theme }) {
