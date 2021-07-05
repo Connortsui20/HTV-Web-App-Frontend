@@ -26,12 +26,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${CongratsImg})`,
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "center",
-        backgroundSize: "auto auto",
+        backgroundSize: "contain",
         
-        // height: "100%",
-        height: theme.spacing(265),
-        //position: "relative",
+        //height: "100%",
+        height: theme.spacing(100),
+        // position: "relative",
         border: "3px solid green",
+        margin: "0",
     },
 
     prize: {
@@ -41,13 +42,13 @@ const useStyles = makeStyles((theme) => ({
         // marginRight: "auto",
         // marginLeft: "auto",
         // marginTop: "60%",
-        height: theme.spacing(50),
+        height: theme.spacing(20),
         // margin: "0",
         // position: "absolute",
         // top: "50%",
-        // //left: "50%",
-        // msTransform: "translate(-50%)", //what is this
-        // transform: "translate(-50%)",
+        // left: "50%",
+        // msTransform: "translate(-50%, -50%)", //what is this
+        // transform: "translate(-50%, -50%)",
     },
 
     form: { //form text box
