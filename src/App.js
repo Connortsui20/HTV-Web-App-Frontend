@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import CongratsImg from "./images/img_congratulations@3x.png";
+import CongratsImg from "./images/img_congratulations_2@3x.png";
 import Airpods from "./images/airpodspng.png"
+import DeliveryInfo from "./images/ic_delivery_information@3x.png"
 
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
@@ -13,15 +14,16 @@ import SuccessPage from './pages/SuccessPage';
 import NoPageFound from './pages/NoPageFound';
 
 import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
+import { SvgIcon } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 
     container: {
         // border: "1px solid blue",
         // width: "20%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        //!display: "flex",
+        //!alignItems: "center",
+        //!justifyContent: "center",
 
         backgroundImage: `url(${CongratsImg})`,
         backgroundRepeat: "no-repeat",
@@ -31,18 +33,18 @@ const useStyles = makeStyles((theme) => ({
         //height: "100%",
         height: theme.spacing(100),
         // position: "relative",
-        border: "3px solid green",
+        // border: "3px solid green",
         margin: "0",
     },
 
     prize: {
-
+        height: "100px",
         // width: "20%",
         // display: "flex",
         // marginRight: "auto",
         // marginLeft: "auto",
-        // marginTop: "60%",
-        height: theme.spacing(20),
+        // marginTop: "35%",
+        // height: theme.spacing(20),
         // margin: "0",
         // position: "absolute",
         // top: "50%",
@@ -53,42 +55,74 @@ const useStyles = makeStyles((theme) => ({
 
     form: { //form text box
         width: "100%",
-        margin: theme.spacing(2, 0),
-        color: "#D7DCDF",
+        margin: theme.spacing(0, 0, 2, 0),
+        // color: "red",
+        
     },
 
     formInput: { //Form text color
-        color: "#5E646A",
+        fontWeight: "400",
+        color: "black",
+    },
+
+    formInputBackground: {
+        backgroundColor: "white",
+        position: "relative",
+        margin: "0 auto",
+    },
+
+    formMargin: {
+        margin: theme.spacing(5, 3, 0, 3)
     },
 
     login: { //padding to table
-        padding: "0 10%",
+        
+    },
+
+    background: {
+        backgroundColor: "#EDF4FD",
     },
 
     title: { //"Login"
         display: "flex",
-        fontWeight: 400,
+        fontWeight: "450",
         fontSize: "25px",
         color: "black",
         // alignItems: "center",
         // justifyContent: "center",
-        margin: theme.spacing(2, 0),
+        //margin: theme.spacing(1, 0, 1, 0),
 
     },
 
-    formTitle: {
+    titleMargin: {
+        margin: theme.spacing(4, 0),
+    },
+
+    formHeader: {
         display: "flex",
-        fontWeight: 300,
         fontSize: "20px",
         color: "black",
-        // alignItems: "center",
+        alignItems: "center",
+        margin: theme.spacing(2, 1, 2, 1),
         // justifyContent: "center",
-        margin: theme.spacing(3, 0, 0, 0),
+       
+    },
+
+    formTitle: {
+        marginLeft: theme.spacing(2),
+        fontWeight: "500",
+        alignItems: "center",
+    },
+
+    formTextTitle: {
+        color: "#1F48B2",
+        fontWeight: "450",
+        margin: theme.spacing(1, 0, 0, 0),
     },
 
     emptyButton: { //when there is not enough information in the text fields
         width: "100%",
-        margin: theme.spacing(3, 0, 5),
+        margin: theme.spacing(3, 0, 5, 0),
         color: "white",
         textTransform: "none",
         backgroundColor: "#B4B4B4",
@@ -103,9 +137,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(3, 0, 5),
         color: "white",
         textTransform: "none",
-        backgroundColor: "#5093F2",
+        backgroundColor: "#FF7514",
         "&:hover": { //on hover
-            backgroundColor: "#0288D1",
+            backgroundColor: "#FFAD08",
             color: "#white",
         }
     },
@@ -119,9 +153,17 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         minWidth: 120,
     },
+
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+
+    icon: {
+        alignItems: "center",
+        height: theme.spacing(5),
+    },
+
+
 
 }));
 
@@ -137,6 +179,12 @@ function App() {
     const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
     const [voucherStatus, setVoucherStatus] = useState("");
     const [submitState, setSubmitState] = useState(false);
+
+    const DeliveryInfoIcon = (props) => {
+        <SvgIcon {...props}>
+        <DeliveryInfo />
+      </SvgIcon>
+    }
 
 
 
@@ -171,13 +219,12 @@ function App() {
         const { voucher, findError } = await ValidateVoucher(code);
         if (!findError) { //! !findError bc I have no idea if its null or undefined
             setVoucherCode(code);
-            // if (voucher.status === "PENDING") {
-            //     console.log("Voucher is valid to be submitted, code:", code);
-            //     setVoucherStatus("PENDING");
-            //     setVoucherCode(code);
-            // } else {
-            //     console.log("Voucher is not valid, status is:", voucher.status);
-            // }
+            setReceiverInfo({
+                block: voucher.block,
+                floor: voucher.floor,
+                receiver: voucher.receiver,
+                phone: voucher.phone,
+            });
             switch (voucher.status) { //? There is probably a better way to do this
                 case "PENDING":
                     setVoucherStatus("PENDING");
@@ -209,7 +256,9 @@ function App() {
             (!submitState) ?
                 (<FormPage code={code} checkVoucherStatus={checkVoucherStatus}
                     voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
-                    productName={productName} productImage={productImage} theme={theme}
+                    productName={productName} productImage={productImage} 
+                    DeliveryInfoIcon={DeliveryInfo}
+                    theme={theme}
                 />) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)
         ,
         "/error": () => <div>There is an error</div>,

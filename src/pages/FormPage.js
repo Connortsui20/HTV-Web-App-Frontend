@@ -1,6 +1,7 @@
 import ReceiverForm from "../components/ReceiverForm"
 
 
+
 export default function FormPage({ code, checkVoucherStatus, voucherCode, submitForm, productName, productImage, theme }) {
 
     checkVoucherStatus(code);
@@ -8,7 +9,7 @@ export default function FormPage({ code, checkVoucherStatus, voucherCode, submit
     return (
         <div>
             {(voucherCode !== "") ? (
-                <div>
+                <div className={theme.background}>
                     <div className={theme.container}>
                         <img className={theme.prize} src={productImage} alt="Prize" />
                     </div>
