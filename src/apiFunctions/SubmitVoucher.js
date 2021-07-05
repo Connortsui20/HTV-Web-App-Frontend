@@ -14,6 +14,7 @@ export default async function SubmitVoucher(voucherCode, details) {
             floor: details.floor,
             receiver: details.receiver,
             phone: details.phone,
+            status: "SUBMITTED",
         });
         console.log("%c Voucher Update Success: ", "color: green; font-weight: bold", data);
         newVoucher = data;

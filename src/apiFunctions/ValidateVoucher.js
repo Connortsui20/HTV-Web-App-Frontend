@@ -17,8 +17,6 @@ export default async function ValidateVoucher(code) {
         findError = error; 
     }
 
-
-
     return ({ //return object to use in App
         voucher,
         findError,

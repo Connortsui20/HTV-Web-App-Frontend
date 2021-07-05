@@ -13,7 +13,6 @@ import Select from '@material-ui/core/Select';
 
 export default function ReceiverForm({ voucherCode, productName, submitForm, theme }) {
 
-
     const [details, setDetails] = useState({ block: "", floor: "", receiver: "", phone: "", });
 
     const submitLogin = (event) => {

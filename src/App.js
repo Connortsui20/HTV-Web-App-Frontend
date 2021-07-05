@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 
 import CongratsImg from "./images/img_congratulations@3x.png";
 import Airpods from "./images/airpodspng.png"
 
-import ReceiverForm from "./components/ReceiverForm";
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
 
-import DefaultPage from './pages/DefaultPage';
 import FormPage from './pages/FormPage';
 import SuccessPage from './pages/SuccessPage';
 import NoPageFound from './pages/NoPageFound';
@@ -130,15 +127,16 @@ function App() {
 
     const submitForm = async (voucherCode, details) => {
         const { newVoucher, updateError } = await SubmitVoucher(voucherCode, details);
-        if (updateError === null) {
+        if (!updateError) {
             if (newVoucher.status === 'SUBMITTED') {
                 setVoucherStatus("SUBMITTED");
-                setReceiverInfo({ 
-                    block: newVoucher.block, 
-                    floor: newVoucher.floor, 
-                    receiver: newVoucher.receiver, 
-                    phone: newVoucher.phone, });
-                setSubmitState(true);    
+                setReceiverInfo({
+                    block: newVoucher.block,
+                    floor: newVoucher.floor,
+                    receiver: newVoucher.receiver,
+                    phone: newVoucher.phone,
+                });
+                setSubmitState(true);
             } else {
                 console.error("%c SOMETHING IS VERY WRONG", "color: green; font-weight: bold")
             }
@@ -147,24 +145,37 @@ function App() {
             // then change page to show all details
 
         } else {
-            
+
             //handle error / return error page
         }
 
     }
 
+    const checkVoucherStatus = async (code) => {
 
+        const { voucher, findError } = await ValidateVoucher(code);
+        if (!findError) { //! !findError bc I have no idea if its null or undefined
+            console.log(voucher);
+            if (voucher.status === "PENDING") {
+                console.log("Voucher is valid to be submitted, code:", code);
+                setVoucherCode(code);
+            } else {
+                console.log("Voucher is not valid, status is:", voucher.status);
+            }
+        } else {
+            console.error("1error with the voucher code", findError);
+        }
 
+    }
 
 
     const routes = { //all url routes
-        "/:code": ({code}) => <DefaultPage code={code} ValidateVoucher={ValidateVoucher} setVoucherCode={setVoucherCode}/>
-        ,
-        "/voucher/:code": () => 
-        (!submitState) ?
-        (<FormPage voucherCode={voucherCode} submitState={submitState} submitForm={submitForm} 
-        productName={productName} productImage={productImage} theme={theme}
-        />) : (<SuccessPage receiverInfo={receiverInfo} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme}/>)
+        "/voucher/:code": ({ code }) =>
+            (!submitState) ?
+                (<FormPage code={code} checkVoucherStatus={checkVoucherStatus}
+                    voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
+                    productName={productName} productImage={productImage} theme={theme}
+                />) : (<SuccessPage receiverInfo={receiverInfo} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)
         ,
         "/error": () => <div>There is an error</div>,
     };
@@ -174,13 +185,16 @@ function App() {
 
     return (
         <div className="App">
-            {}
-            
-            <A href="/voucher/:code"></A>
-            <A href="/error"></A>
-        {routeResult || <NoPageFound />}
+            <A href={`/voucher/${voucherCode}`}></A>
+
+
+            {routeResult || <NoPageFound />}
         </div>
     );
 }
 
 export default App;
+
+/* {(voucherCode !== "") ? <A href={`/voucher/${voucherCode}`}></A> :
+            <A href={`/${voucherCode}`}></A>
+            }*/
