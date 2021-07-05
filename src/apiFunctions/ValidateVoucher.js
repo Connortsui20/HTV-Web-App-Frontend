@@ -10,7 +10,7 @@ export default async function ValidateVoucher(code) {
 
     try {
         const { data } = await axios.get(`${BACKEND_URL}/vouchers/${code}`);
-        console.log("%c Voucher Valid: ", "color: green; font-weight: bold", data);
+        //console.log("%c Voucher Valid: ", "color: green; font-weight: bold", data);
         voucher = data;
     } catch (error) {
         console.error("%c Voucher Not Valid, error: ", "color: yellow; font-weight: bold", error);

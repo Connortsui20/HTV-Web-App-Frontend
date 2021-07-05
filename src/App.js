@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${CongratsImg})`,
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "center",
+        backgroundSize: "auto auto",
+        
         // height: "100%",
         height: theme.spacing(265),
         //position: "relative",
@@ -194,8 +196,6 @@ function App() {
                 default: 
                     console.error("something went wrong with the status");
             }
-            console.log(voucherStatus);
-
         } else {
             console.error("1error with the voucher code", findError);
         }
