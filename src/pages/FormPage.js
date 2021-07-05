@@ -18,7 +18,7 @@ export default function FormPage({ code, checkVoucherStatus, voucherCode, submit
                     </div>
                 </div>
             ) : (
-                <div>Voucher not valid</div>
+                <div>Voucher not valid Page</div>
             )}
         </div>
     );

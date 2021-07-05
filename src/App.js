@@ -72,7 +72,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     formMargin: {
-        margin: theme.spacing(5, 3, 0, 3)
+        margin: theme.spacing(5, 3, 0, 3),
+    },
+
+    submitMargin: {
+        margin: theme.spacing(0, 3, 5, 3), //TODO change to padding
     },
 
     login: { //padding to table
@@ -162,6 +166,12 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         height: theme.spacing(5),
     },
+
+    status: {
+        color: "#00ACBA",
+        margin: theme.spacing(3, 4),
+    },
+
 
 
 
