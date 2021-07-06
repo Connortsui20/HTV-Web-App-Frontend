@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import CongratsImg from "./images/img_congratulations_2@3x.png";
 import DeliveryInfo from "./images/ic_delivery_information@3x.png"
-import WrongRedemption from './images/img_wrong_redemption@3x.png'
 
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
@@ -19,11 +18,9 @@ import { useRoutes, A, navigate } from "hookrouter";
 
 const useStyles = makeStyles((theme) => ({
 
-
-    
     
     form: {
-        padding: theme.spacing(2, 5, 4, 5),
+        padding: theme.spacing(2, 4, 4, 4),
         backgroundColor: "white",
     },
    
@@ -47,12 +44,12 @@ const useStyles = makeStyles((theme) => ({
     formHeader: {
         display: "flex",
         alignItems: "center",
-        padding: theme.spacing(4, 8),
+        padding: theme.spacing(2, 5),
     },
 
     formTitle: {
-        marginLeft: theme.spacing(3),
-        fontSize: "20px",
+        marginLeft: theme.spacing(2),
+        //fontSize: "20px",
         color: "black",
         fontWeight: "500",
         alignItems: "center",
@@ -65,15 +62,11 @@ const useStyles = makeStyles((theme) => ({
     },
 
     formEntry: {
-        margin: theme.spacing(5, 0),
+        margin: theme.spacing(2, 0),
     },
     
     submitMargin: {
         padding: theme.spacing(0, 3, 5, 3), 
-    },
-
-    login: { //padding to table
-
     },
 
     background: {
@@ -92,13 +85,13 @@ const useStyles = makeStyles((theme) => ({
     },
 
     titleMargin: {
-        margin: theme.spacing(3, 5),
+        margin: theme.spacing(3, 4),
     },
 
 
     buttonBackground: {
         backgroundColor: "white",
-        padding: theme.spacing(0, 5),
+        padding: theme.spacing(0, 4),
         marginTop: theme.spacing(5),
     },
     
@@ -137,22 +130,21 @@ const useStyles = makeStyles((theme) => ({
 
     icon: {
         alignItems: "center",
-        height: theme.spacing(5),
+        height: theme.spacing(3),
     },
 
     status: {
         display: "flex",
         alignItems: "center",
-        // justifyContent: "center", 
         color: "#00ACBA",
-        padding: theme.spacing(3, 3, 2, 3),
+        padding: theme.spacing(2, 3, 0, 3),
     },
 
     waiting: {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: theme.spacing(10),
+        margin: theme.spacing(10, 0),
     },
 
 
@@ -161,7 +153,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-//TODO just redo the entire css
 function App() {
 
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -212,7 +203,8 @@ function App() {
                     console.error("something went wrong with the status");
             }
         } else {
-            setError(findError);
+            setError(findError); //? Do I need this?
+            navigate("/error");
         }
     }
 
@@ -243,7 +235,6 @@ function App() {
 
     const handleCloseError = () => {
         setError("");
-        navigate("/error");
     }
 
     /******************************************************************************************* */

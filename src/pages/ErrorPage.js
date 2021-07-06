@@ -1,13 +1,12 @@
-
+import WrongRedemption from '../images/img_wrong_redemption@3x.png'
 
 
 export default function ErrorPage() {
 
 
-
     return (
-        <div>
-            There was an error, TODO ADD IMAGE, maybe add redirect to main page button?
+        <div className="container">
+            <img src={WrongRedemption} alt="Prize" />
         </div>
     );
 

@@ -27,12 +27,12 @@ export default function FormPage({ error, handleCloseError, code, checkVoucherSt
                 </div>
             ) : (
                 <div>
-                    <div class="loader"></div>
                     <div>
-                        <Typography className={theme.waiting} variant="h3">
+                        <Typography className={theme.waiting} variant="h5">
                             Please Wait
                         </Typography>
                     </div>
+                    <div className="loader"></div>
                 </div>
             )}
         </div>

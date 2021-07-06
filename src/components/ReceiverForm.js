@@ -20,7 +20,6 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
     const submitLogin = (event) => {
         event.preventDefault(); //prevent page from re-rendering
         submitForm(voucherCode, details);
-        console.log("Form Submitted");
     }
 
     return (
@@ -47,10 +46,10 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                     <div className={theme.form}>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Building Block"}</Typography>
+                                <Typography className={theme.formTextTitle}>{"Building Block *"}</Typography>
                             </div>
                             <div> <FormControl required className={theme.formText}>
-                                <InputLabel id="demo-simple-select-required-label">Choose a block</InputLabel>
+                                
                                 <Select
                                     labelId="block"
                                     id="block"
@@ -65,11 +64,11 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                         </div>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Floor"}</Typography>
+                                <Typography className={theme.formTextTitle}>{"Floor *"}</Typography>
                             </div>
                             <div >
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
-                                    type="floor" name="floor" id="floor" label="Enter floor"
+                                    type="floor" name="floor" id="floor"
                                     onChange={e => setDetails({ ...details, floor: e.target.value })} value={details.floor} />
                             </div>
                         </div>
@@ -85,21 +84,21 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                     <div className={theme.form}>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Name"}</Typography>
+                                <Typography className={theme.formTextTitle}>{"Name *"}</Typography>
                             </div>
                             <div>
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
-                                    type="receiver" name="receiver" id="receiver" label="Enter your name"
+                                    type="receiver" name="receiver" id="receiver" 
                                     onChange={e => setDetails({ ...details, receiver: e.target.value })} value={details.receiver} />
                             </div>
                         </div>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Phone"}</Typography>
+                                <Typography className={theme.formTextTitle}>{"Phone *"}</Typography>
                             </div>
                             <div>
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
-                                    type="phone" name="phone" id="phone" label="Enter your phone number"
+                                    type="phone" name="phone" id="phone"
                                     onChange={e => setDetails({ ...details, phone: e.target.value })} value={details.phone} />
                             </div>
                         </div>
