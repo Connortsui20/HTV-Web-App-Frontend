@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 
 import CongratsImg from "./images/img_congratulations_2@3x.png";
-import DeliveryInfo from "./images/ic_delivery_information@3x.png"
 
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
@@ -18,7 +17,6 @@ import { useRoutes, A, navigate } from "hookrouter";
 
 const useStyles = makeStyles((theme) => ({
 
-    
     form: {
         padding: theme.spacing(2, 4, 4, 4),
         backgroundColor: "white",
@@ -147,9 +145,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(10, 0),
     },
 
-
-
-
 }));
 
 
@@ -206,7 +201,7 @@ function App() {
             setError(findError); //? Do I need this?
             navigate("/error");
         }
-    }
+    };
 
 
     const submitForm = async (voucherCode, details) => {
@@ -224,18 +219,14 @@ function App() {
             } else {
                 console.error("%c SOMETHING IS VERY WRONG", "color: green; font-weight: bold")
             }
-
-            // set receiver data
-            // then change page to show all details
-
         } else {
             setError(updateError);
         }
-    }
+    };
 
     const handleCloseError = () => {
         setError("");
-    }
+    };
 
     /******************************************************************************************* */
 
@@ -250,7 +241,7 @@ function App() {
                             code={code} checkVoucherStatus={checkVoucherStatus}
                             voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
                             productName={productName} productImage={productImage}
-                            DeliveryInfoIcon={DeliveryInfo}
+                            
                             theme={theme}
                         /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)}
             </div>,

@@ -1,7 +1,7 @@
 import ReceiverForm from "../components/ReceiverForm";
 import ErrorPopup from "../components/ErrorPopup";
 
-import CongratsImg from "../images/img_congratulations_2@3x.png";
+import CongratsImg from "../images/img_congratulations@3x.png";
 
 
 import { Typography } from "@material-ui/core";
@@ -19,7 +19,12 @@ export default function FormPage({ error, handleCloseError, code, checkVoucherSt
             {(voucherCode) ? (
                 <div className={theme.background}>
                     <div className="container">
-                        <img src={CongratsImg} alt="Prize" />
+                        <div className="parent">
+                            <img src={CongratsImg} alt="screen" />
+                        </div>
+                        <div className="child">
+                            <img src={productImage} alt="prize" />
+                        </div>
                     </div>
                     <div>
                         <ReceiverForm productName={productName} voucherCode={voucherCode} submitForm={submitForm} theme={theme} />

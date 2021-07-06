@@ -7,7 +7,7 @@ import DeliveryInfo from "../images/ic_delivery_information@3x.png"
 import WinnerInfo from "../images/ic_winner_information@3x.png"
 import StatusInfo from "../images/ic_delivery_status@3x.png"
 
-import CongratsImg from "../images/img_congratulations_2@3x.png";
+import CongratsImg from "../images/img_congratulations@3x.png";
 
 
 export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, productName, productImage, theme }) {
@@ -40,7 +40,12 @@ export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, 
         <div className={theme.background}>
 
             <div className="container">
-                <img src={CongratsImg} alt="Prize" />
+                <div className="parent">
+                    <img src={CongratsImg} alt="screen" />
+                </div>
+                <div className="child">
+                    <img src={productImage} alt="prize" />
+                </div>
             </div>
 
             <div>
