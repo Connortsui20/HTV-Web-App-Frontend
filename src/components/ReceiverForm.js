@@ -24,86 +24,98 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
     }
 
     return (
-        <div className={theme.formMargin}>
+        <div>
+
             <div>
                 <div className={theme.titleMargin}>
                     <Typography className={theme.title}>{"Congratulations!"}</Typography>
                     <Typography className={theme.title}>{`Lucky draw wins ${productName}.`}</Typography>
                 </div>
                 <div className={theme.titleMargin}>
-                    <Typography className={theme.title}>{"Please fill in the following information to arrange delivery to you"}</Typography>
+                    <Typography className={theme.title}>{"Please fill in the following information to arrange delivery to you."}</Typography>
                 </div>
             </div>
 
-
-
             <form onSubmit={submitLogin} noValidate autoComplete="off" >
-                <div>
 
+                <div>
                     <div className={theme.formHeader}>
                         <img className={theme.icon} src={DeliveryInfo} alt="Delivery Info" />
                         <Typography className={theme.formTitle}>{"Delivery information"}</Typography>
                     </div>
 
-                    <div className={theme.formInputBackground}>
-                        <div>
-                            <Typography className={theme.formTextTitle}>{"Building Block"}</Typography>
+                    <div className={theme.form}>
+                        <div className={theme.formEntry}>
+                            <div>
+                                <Typography className={theme.formTextTitle}>{"Building Block"}</Typography>
+                            </div>
+                            <div> <FormControl required className={theme.formText}>
+                                <InputLabel id="demo-simple-select-required-label">Choose a block</InputLabel>
+                                <Select
+                                    labelId="block"
+                                    id="block"
+                                    value={details.block}
+                                    onChange={event => setDetails({ ...details, block: event.target.value })}
+                                    className={theme.formInput} >
+                                    <MenuItem value={"EAST"}>East</MenuItem>
+                                    <MenuItem value={"WEST"}>West</MenuItem>
+                                </Select>
+                            </FormControl>
+                            </div>
                         </div>
-                        <div> <FormControl required className={theme.form}>
-                            <InputLabel id="demo-simple-select-required-label">Choose a block</InputLabel>
-                            <Select
-                                labelId="block"
-                                id="block"
-                                value={details.block}
-                                onChange={event => setDetails({ ...details, block: event.target.value })}
-                                className={theme.formInput} >
-                                <MenuItem value={"EAST"}>East</MenuItem>
-                                <MenuItem value={"WEST"}>West</MenuItem>
-                            </Select>
-                        </FormControl> </div>
-                        <div>
-                            <Typography className={theme.formTextTitle}>{"Floor"}</Typography>
-                        </div>
-                        <div >
-
-                            <TextField required className={theme.form} InputProps={{ className: theme.formInput }}
-                                type="floor" name="floor" id="floor" label="Enter floor"
-                                onChange={e => setDetails({ ...details, floor: e.target.value })} value={details.floor} />
+                        <div className={theme.formEntry}>
+                            <div>
+                                <Typography className={theme.formTextTitle}>{"Floor"}</Typography>
+                            </div>
+                            <div >
+                                <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
+                                    type="floor" name="floor" id="floor" label="Enter floor"
+                                    onChange={e => setDetails({ ...details, floor: e.target.value })} value={details.floor} />
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div>
                     <div className={theme.formHeader}>
                         <img className={theme.icon} src={WinnerInfo} alt="Delivery Info" />
                         <Typography className={theme.formTitle}>{"Winner information"}</Typography>
                     </div>
 
-                    <div className={theme.formInputBackground}>
-                        <div>
-                            <Typography className={theme.formTextTitle}>{"Name"}</Typography>
+                    <div className={theme.form}>
+                        <div className={theme.formEntry}>
+                            <div>
+                                <Typography className={theme.formTextTitle}>{"Name"}</Typography>
+                            </div>
+                            <div>
+                                <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
+                                    type="receiver" name="receiver" id="receiver" label="Enter your name"
+                                    onChange={e => setDetails({ ...details, receiver: e.target.value })} value={details.receiver} />
+                            </div>
                         </div>
-                        <div>
-                            <TextField required className={theme.form} InputProps={{ className: theme.formInput }}
-                                type="receiver" name="receiver" id="receiver" label="Enter your name"
-                                onChange={e => setDetails({ ...details, receiver: e.target.value })} value={details.receiver} />
-                        </div>
-                        <div>
-                            <Typography className={theme.formTextTitle}>{"Floor"}</Typography>
-                        </div>
-                        <div>
-                            <TextField required className={theme.form} InputProps={{ className: theme.formInput }}
-                                type="phone" name="phone" id="phone" label="Enter your phone Number"
-                                onChange={e => setDetails({ ...details, phone: e.target.value })} value={details.phone} />
+                        <div className={theme.formEntry}>
+                            <div>
+                                <Typography className={theme.formTextTitle}>{"Phone"}</Typography>
+                            </div>
+                            <div>
+                                <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
+                                    type="phone" name="phone" id="phone" label="Enter your phone number"
+                                    onChange={e => setDetails({ ...details, phone: e.target.value })} value={details.phone} />
+                            </div>
                         </div>
                     </div>
+                </div>
 
+                <div className={theme.buttonBackground}>
                     {(details.block !== "" && details.floor !== "" && details.receiver !== "" && details.phone !== "")
                         ? (<Button className={theme.button} type="submit" value="Login" variant="contained">
                             <Typography variant="h6">Submit Form</Typography></Button>)
                         : (<Button className={theme.emptyButton} variant="contained">
                             <   Typography variant="h6">Submit Form</Typography></Button>)}
-
-
                 </div>
+
             </form>
+
         </div>
 
     );

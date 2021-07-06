@@ -19,58 +19,18 @@ import { useRoutes, A, navigate } from "hookrouter";
 
 const useStyles = makeStyles((theme) => ({
 
-    container: {
-        // border: "1px solid blue",
-        // width: "20%",
-        //!display: "flex",
-        //!alignItems: "center",
-        //!justifyContent: "center",
 
-        backgroundImage: `url(${CongratsImg})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPositionX: "center",
-        backgroundSize: "contain",
-
-        //height: "100%",
-        height: theme.spacing(100),
-        // position: "relative",
-        // border: "3px solid green",
-        margin: "0",
+    
+    
+    form: {
+        padding: theme.spacing(2, 5, 4, 5),
+        backgroundColor: "white",
     },
-
-    errorContainer: {
-        backgroundImage: `url(${WrongRedemption})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPositionX: "center",
-        backgroundSize: "contain",
-        //height: "100%",
-        height: theme.spacing(100),
-        // position: "relative",
-        // border: "3px solid green",
-        margin: "0",
-    },
-
-    prize: {
-        height: "100px",
-        // width: "20%",
-        // display: "flex",
-        // marginRight: "auto",
-        // marginLeft: "auto",
-        // marginTop: "35%",
-        // height: theme.spacing(20),
-        // margin: "0",
-        // position: "absolute",
-        // top: "50%",
-        // left: "50%",
-        // msTransform: "translate(-50%, -50%)", //what is this
-        // transform: "translate(-50%, -50%)",
-    },
-
-    form: { //form text box
+   
+    formText: { //form text box
         width: "100%",
-        margin: theme.spacing(0, 0, 2, 0),
+        //backgroundColor: "red",
         // color: "red",
-
     },
 
     formInput: { //Form text color
@@ -84,12 +44,32 @@ const useStyles = makeStyles((theme) => ({
         margin: "0 auto",
     },
 
-    formMargin: {
-        margin: theme.spacing(5, 3, 0, 3),
+    formHeader: {
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(4, 8),
     },
 
+    formTitle: {
+        marginLeft: theme.spacing(3),
+        fontSize: "20px",
+        color: "black",
+        fontWeight: "500",
+        alignItems: "center",
+    },
+
+    formTextTitle: {
+        color: "#1F48B2",
+        fontWeight: "450",
+        margin: theme.spacing(1, 0, 0, 0),
+    },
+
+    formEntry: {
+        margin: theme.spacing(5, 0),
+    },
+    
     submitMargin: {
-        margin: theme.spacing(0, 3, 5, 3), //TODO change to padding
+        padding: theme.spacing(0, 3, 5, 3), 
     },
 
     login: { //padding to table
@@ -112,34 +92,19 @@ const useStyles = makeStyles((theme) => ({
     },
 
     titleMargin: {
-        margin: theme.spacing(4, 0),
+        margin: theme.spacing(3, 5),
     },
 
-    formHeader: {
-        display: "flex",
-        fontSize: "20px",
-        color: "black",
-        alignItems: "center",
-        margin: theme.spacing(2, 1, 2, 1),
-        // justifyContent: "center",
 
+    buttonBackground: {
+        backgroundColor: "white",
+        padding: theme.spacing(0, 5),
+        marginTop: theme.spacing(5),
     },
-
-    formTitle: {
-        marginLeft: theme.spacing(2),
-        fontWeight: "500",
-        alignItems: "center",
-    },
-
-    formTextTitle: {
-        color: "#1F48B2",
-        fontWeight: "450",
-        margin: theme.spacing(1, 0, 0, 0),
-    },
-
+    
     emptyButton: { //when there is not enough information in the text fields
         width: "100%",
-        margin: theme.spacing(3, 0, 5, 0),
+        margin: theme.spacing(5, 3, 5, 0),
         color: "white",
         textTransform: "none",
         backgroundColor: "#B4B4B4",
@@ -151,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
 
     button: { //* needs to be the same as emptyButton except different backgroundColor
         width: "100%",
-        margin: theme.spacing(3, 0, 5),
+        margin: theme.spacing(5, 3, 5, 0),
         color: "white",
         textTransform: "none",
         backgroundColor: "#FF7514",
@@ -166,11 +131,6 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(0, 1, 0),
     },
 
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
@@ -181,8 +141,18 @@ const useStyles = makeStyles((theme) => ({
     },
 
     status: {
+        display: "flex",
+        alignItems: "center",
+        // justifyContent: "center", 
         color: "#00ACBA",
-        margin: theme.spacing(3, 4),
+        padding: theme.spacing(3, 3, 2, 3),
+    },
+
+    waiting: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: theme.spacing(10),
     },
 
 
@@ -221,8 +191,6 @@ function App() {
                 phone: voucher.phone,
             });
             setProductName(voucher.productName);
-            console.log(BACKEND_URL+voucher.image.url);
-            
             setProductImage(BACKEND_URL+voucher.image.url)
             switch (voucher.status) { //? There is probably a better way to do this
                 case "PENDING":
@@ -271,10 +239,7 @@ function App() {
         } else {
             setError(updateError);
         }
-
     }
-
-    
 
     const handleCloseError = () => {
         setError("");
