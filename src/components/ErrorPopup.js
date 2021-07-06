@@ -14,7 +14,7 @@ export default function ErrorPopup({ error, handleCloseError, theme }) {
 
     return (
         <div><Dialog
-            open={(error)}
+            open={!!error}
             onClose={handleCloseError}>
             <DialogTitle id="error">Error</DialogTitle>
             <DialogContent><DialogContentText id="error description">

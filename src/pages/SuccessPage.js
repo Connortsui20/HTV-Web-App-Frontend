@@ -6,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import DeliveryInfo from "../images/ic_delivery_information@3x.png"
 import WinnerInfo from "../images/ic_winner_information@3x.png"
 import StatusInfo from "../images/ic_delivery_status@3x.png"
-
 import CongratsImg from "../images/img_congratulations@3x.png";
 
 
