@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import CongratsImg from "./images/img_congratulations_2@3x.png";
-
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
 
@@ -21,11 +19,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 4, 4),
         backgroundColor: "white",
     },
-   
+
     formText: { //form text box
         width: "100%",
-        //backgroundColor: "red",
-        // color: "red",
     },
 
     formInput: { //Form text color
@@ -47,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 
     formTitle: {
         marginLeft: theme.spacing(2),
-        //fontSize: "20px",
         color: "black",
         fontWeight: "500",
         alignItems: "center",
@@ -62,24 +57,16 @@ const useStyles = makeStyles((theme) => ({
     formEntry: {
         margin: theme.spacing(2, 0),
     },
-    
-    submitMargin: {
-        padding: theme.spacing(0, 3, 5, 3), 
-    },
 
     background: {
         backgroundColor: "#EDF4FD",
     },
 
-    title: { //"Login"
+    title: { 
         display: "flex",
         fontWeight: "450",
-        fontSize: "25px",
+        fontSize: theme.spacing(3),
         color: "black",
-        // alignItems: "center",
-        // justifyContent: "center",
-        //margin: theme.spacing(1, 0, 1, 0),
-
     },
 
     titleMargin: {
@@ -92,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 4),
         marginTop: theme.spacing(5),
     },
-    
+
     emptyButton: { //when there is not enough information in the text fields
         width: "100%",
         margin: theme.spacing(5, 3, 5, 0),
@@ -117,15 +104,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
 
-    errorText: { //error message
-        color: "red",
-        margin: theme.spacing(0, 1, 0),
-    },
-
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-
     icon: {
         alignItems: "center",
         height: theme.spacing(3),
@@ -148,19 +126,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+    /********************************************************************************************/
+
+    
 function App() {
 
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     const theme = useStyles();
 
+    const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
     const [productImage, setProductImage] = useState("");
     const [productName, setProductName] = useState("AirPods Pro");
-    const [voucherCode, setVoucherCode] = useState(""); 
-
-    const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
-    const [voucherStatus, setVoucherStatus] = useState("");
     const [submitState, setSubmitState] = useState(false);
+    
+    const [voucherCode, setVoucherCode] = useState("");
+    const [voucherStatus, setVoucherStatus] = useState("");
 
     const [error, setError] = useState("");
 
@@ -177,7 +158,7 @@ function App() {
                 phone: voucher.phone,
             });
             setProductName(voucher.productName);
-            setProductImage(BACKEND_URL+voucher.image.url)
+            setProductImage(BACKEND_URL + voucher.image.url)
             switch (voucher.status) { //? There is probably a better way to do this
                 case "PENDING":
                     setVoucherStatus("PENDING");
@@ -203,7 +184,6 @@ function App() {
         }
     };
 
-
     const submitForm = async (voucherCode, details) => {
         const { newVoucher, updateError } = await SubmitVoucher(voucherCode, details);
         if (!updateError) {
@@ -228,22 +208,21 @@ function App() {
         setError("");
     };
 
-    /******************************************************************************************* */
+    /********************************************************************************************/
 
     const routes = { //all url routes
         "/voucher/:code": ({ code }) =>
             <div>
                 {(!submitState) ?
                     (<div>
-
                         <FormPage
                             error={error} handleCloseError={handleCloseError}
                             code={code} checkVoucherStatus={checkVoucherStatus}
                             voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
                             productName={productName} productImage={productImage}
-                            
                             theme={theme}
-                        /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)}
+                        /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus}
+                            productName={productName} productImage={productImage} theme={theme} />)}
             </div>,
         "/error": () => <ErrorPage />,
     };

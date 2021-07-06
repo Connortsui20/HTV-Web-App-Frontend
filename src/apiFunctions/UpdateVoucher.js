@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-
+//! FOR BACKEND USE ONLY, NOT USED IN FRONTEND
 //? Is it updated by voucher ID or voucher Code? if voucher ID, then use built in update function
 export default async function UpdateVoucher(voucherCode, details) {
 

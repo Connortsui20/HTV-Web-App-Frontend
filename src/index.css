@@ -20,12 +20,9 @@ body {
 
     
 .container {
-    
     display: grid;
     position: relative;
     grid-template-columns: repeat(6, 1fr);
-    
-
 }
 
 .container .parent {
@@ -44,4 +41,4 @@ body {
 .container img {
     width: 100%;
     display: block;
-  }
+}

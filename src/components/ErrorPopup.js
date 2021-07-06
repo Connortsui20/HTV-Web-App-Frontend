@@ -12,7 +12,6 @@ export default function ErrorPopup({ error, handleCloseError, theme }) {
     //openError is a boolean, true brings up the popup, false closes it
     //handleCloseError closes the error popup and resets the error
 
-
     return (
         <div><Dialog
             open={(error)}
@@ -22,7 +21,7 @@ export default function ErrorPopup({ error, handleCloseError, theme }) {
                 {error.message}
             </DialogContentText></DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseError} color="primary" autoFocus>
+                <Button onClick={handleCloseError} autoFocus>
                     Ok
                 </Button>
             </DialogActions>

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css'
 
-
-
+//! No Strict mode in production
 ReactDOM.render(
+
 
     <React.StrictMode>
 
@@ -18,5 +18,5 @@ ReactDOM.render(
 
     document.getElementById('root')
     
-);
 
+);

@@ -10,8 +10,7 @@ import StatusInfo from "../images/ic_delivery_status@3x.png"
 import CongratsImg from "../images/img_congratulations@3x.png";
 
 
-export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, productName, productImage, theme }) {
-
+export default function SuccessPage({ receiverInfo, voucherStatus, productName, productImage, theme }) {
 
     const deliveryMessage = (voucherStatus) => {
         let message = "";
@@ -37,6 +36,7 @@ export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, 
 
 
     return (
+        
         <div className={theme.background}>
 
             <div className="container">
@@ -129,6 +129,8 @@ export default function SuccessPage({ receiverInfo, voucherStatus, voucherCode, 
             </form>
 
         </div>
+
     );
 
+    
 }

@@ -3,7 +3,6 @@ import ErrorPopup from "../components/ErrorPopup";
 
 import CongratsImg from "../images/img_congratulations@3x.png";
 
-
 import { Typography } from "@material-ui/core";
 
 

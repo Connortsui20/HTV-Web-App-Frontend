@@ -17,9 +17,11 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
     const submitLogin = (event) => {
         event.preventDefault(); //prevent page from re-rendering
         submitForm(voucherCode, details);
-    }
+    };
+
 
     return (
+        
         <div>
 
             <div>
@@ -116,4 +118,5 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
 
     );
 
+    
 }
