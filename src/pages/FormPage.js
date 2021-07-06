@@ -1,14 +1,17 @@
-import ReceiverForm from "../components/ReceiverForm"
+import ReceiverForm from "../components/ReceiverForm";
+import ErrorPopup from "../components/ErrorPopup";
 
 
+export default function FormPage({ error, handleCloseError, code, checkVoucherStatus, voucherCode, submitForm, productName, productImage, theme }) {
 
-export default function FormPage({ code, checkVoucherStatus, voucherCode, submitForm, productName, productImage, theme }) {
-
-    checkVoucherStatus(code);
+    if (!voucherCode) {
+        checkVoucherStatus(code);
+    }
 
     return (
         <div>
-            {(voucherCode !== "") ? (
+            <ErrorPopup error={error} handleCloseError={handleCloseError} />
+            {(voucherCode) ? (
                 <div className={theme.background}>
                     <div className={theme.container}>
                         <img className={theme.prize} src={productImage} alt="Prize" />
@@ -18,7 +21,9 @@ export default function FormPage({ code, checkVoucherStatus, voucherCode, submit
                     </div>
                 </div>
             ) : (
-                <div>Voucher not valid Page</div>
+                <div className={theme.errorContainer}>
+                    PLEASE WAIT
+                </div>
             )}
         </div>
     );

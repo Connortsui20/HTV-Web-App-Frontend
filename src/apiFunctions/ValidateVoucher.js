@@ -14,7 +14,7 @@ export default async function ValidateVoucher(code) {
         voucher = data;
     } catch (error) {
         console.error("%c Voucher Not Valid, error: ", "color: yellow; font-weight: bold", error);
-        findError = error; 
+        findError = error;
     }
 
     return ({ //return object to use in App

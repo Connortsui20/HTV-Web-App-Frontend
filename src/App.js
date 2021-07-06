@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 
 import CongratsImg from "./images/img_congratulations_2@3x.png";
-import Airpods from "./images/airpodspng.png"
+import Airpods from "./images/airpodspng.png";
 import DeliveryInfo from "./images/ic_delivery_information@3x.png"
+import WrongRedemption from './images/img_wrong_redemption@3x.png'
 
 import SubmitVoucher from './apiFunctions/SubmitVoucher';
 import ValidateVoucher from './apiFunctions/ValidateVoucher';
@@ -12,6 +13,9 @@ import ValidateVoucher from './apiFunctions/ValidateVoucher';
 import FormPage from './pages/FormPage';
 import SuccessPage from './pages/SuccessPage';
 import NoPageFound from './pages/NoPageFound';
+import ErrorPage from './pages/ErrorPage';
+
+
 
 import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
 import { SvgIcon } from '@material-ui/core';
@@ -29,7 +33,19 @@ const useStyles = makeStyles((theme) => ({
         backgroundRepeat: "no-repeat",
         backgroundPositionX: "center",
         backgroundSize: "contain",
-        
+
+        //height: "100%",
+        height: theme.spacing(100),
+        // position: "relative",
+        // border: "3px solid green",
+        margin: "0",
+    },
+
+    errorContainer: {
+        backgroundImage: `url(${WrongRedemption})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPositionX: "center",
+        backgroundSize: "contain",
         //height: "100%",
         height: theme.spacing(100),
         // position: "relative",
@@ -57,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         margin: theme.spacing(0, 0, 2, 0),
         // color: "red",
-        
+
     },
 
     formInput: { //Form text color
@@ -80,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     login: { //padding to table
-        
+
     },
 
     background: {
@@ -109,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         margin: theme.spacing(2, 1, 2, 1),
         // justifyContent: "center",
-       
+
     },
 
     formTitle: {
@@ -178,6 +194,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+//TODO just redo the entire css
 function App() {
 
     const theme = useStyles();
@@ -190,12 +207,7 @@ function App() {
     const [voucherStatus, setVoucherStatus] = useState("");
     const [submitState, setSubmitState] = useState(false);
 
-    const DeliveryInfoIcon = (props) => {
-        <SvgIcon {...props}>
-        <DeliveryInfo />
-      </SvgIcon>
-    }
-
+    const [error, setError] = useState("");
 
 
     const submitForm = async (voucherCode, details) => {
@@ -218,8 +230,7 @@ function App() {
             // then change page to show all details
 
         } else {
-
-            //handle error / return error page
+            setError(updateError);
         }
 
     }
@@ -251,27 +262,37 @@ function App() {
                     setVoucherStatus("DELIVERED");
                     setSubmitState(true);
                     break;
-                default: 
+                default:
                     console.error("something went wrong with the status");
             }
         } else {
-            console.error("1error with the voucher code", findError);
+            setError(findError);
         }
-
     }
 
+    const handleCloseError = () => {
+        setError("");
+        navigate("/error");
+    }
+
+    /******************************************************************************************* */
 
     const routes = { //all url routes
         "/voucher/:code": ({ code }) =>
-            (!submitState) ?
-                (<FormPage code={code} checkVoucherStatus={checkVoucherStatus}
-                    voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
-                    productName={productName} productImage={productImage} 
-                    DeliveryInfoIcon={DeliveryInfo}
-                    theme={theme}
-                />) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)
-        ,
-        "/error": () => <div>There is an error</div>,
+            <div>
+                {(!submitState) ?
+                    (<div>
+
+                        <FormPage
+                            error={error} handleCloseError={handleCloseError}
+                            code={code} checkVoucherStatus={checkVoucherStatus}
+                            voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
+                            productName={productName} productImage={productImage}
+                            DeliveryInfoIcon={DeliveryInfo}
+                            theme={theme}
+                        /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus} voucherCode={voucherCode} productName={productName} productImage={productImage} theme={theme} />)}
+            </div>,
+        "/error": () => <ErrorPage />,
     };
 
 
@@ -280,15 +301,9 @@ function App() {
     return (
         <div className="App">
             <A href={`/voucher/${voucherCode}`}></A>
-
-
             {routeResult || <NoPageFound />}
         </div>
     );
 }
 
 export default App;
-
-/* {(voucherCode !== "") ? <A href={`/voucher/${voucherCode}`}></A> :
-            <A href={`/${voucherCode}`}></A>
-            }*/

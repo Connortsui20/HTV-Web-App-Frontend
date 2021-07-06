@@ -22,7 +22,7 @@ export default async function UpdateVoucher(voucherCode, details) {
         newVoucher = data;
     } catch (error) {
         console.error("%c Voucher Update Failure: ", "color: yellow; font-weight: bold", error);
-        updateError = error; 
+        updateError = error;
     }
 
     return ({ //return object to use in App
