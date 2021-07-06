@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 
 import CongratsImg from "./images/img_congratulations_2@3x.png";
-import Airpods from "./images/airpodspng.png";
 import DeliveryInfo from "./images/ic_delivery_information@3x.png"
 import WrongRedemption from './images/img_wrong_redemption@3x.png'
 
@@ -15,10 +14,8 @@ import SuccessPage from './pages/SuccessPage';
 import NoPageFound from './pages/NoPageFound';
 import ErrorPage from './pages/ErrorPage';
 
+import { useRoutes, A, navigate } from "hookrouter";
 
-
-import { useRoutes, A, useQueryParams, navigate } from "hookrouter";
-import { SvgIcon } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -197,17 +194,59 @@ const useStyles = makeStyles((theme) => ({
 //TODO just redo the entire css
 function App() {
 
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
     const theme = useStyles();
 
-    const [productImage, setProductImage] = useState(Airpods);
+    const [productImage, setProductImage] = useState("");
     const [productName, setProductName] = useState("AirPods Pro");
-    const [voucherCode, setVoucherCode] = useState(""); //TODO make this a hook instead
+    const [voucherCode, setVoucherCode] = useState(""); 
 
     const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
     const [voucherStatus, setVoucherStatus] = useState("");
     const [submitState, setSubmitState] = useState(false);
 
     const [error, setError] = useState("");
+
+
+    const checkVoucherStatus = async (code) => {
+
+        const { voucher, findError } = await ValidateVoucher(code);
+        if (!findError) { //! !findError bc I have no idea if its null or undefined
+            setVoucherCode(code);
+            setReceiverInfo({
+                block: voucher.block,
+                floor: voucher.floor,
+                receiver: voucher.receiver,
+                phone: voucher.phone,
+            });
+            setProductName(voucher.productName);
+            console.log(BACKEND_URL+voucher.image.url);
+            
+            setProductImage(BACKEND_URL+voucher.image.url)
+            switch (voucher.status) { //? There is probably a better way to do this
+                case "PENDING":
+                    setVoucherStatus("PENDING");
+                    break;
+                case "SUBMITTED":
+                    setVoucherStatus("SUBMITTED");
+                    setSubmitState(true);
+                    break;
+                case "DELIVERING":
+                    setVoucherStatus("DELIVERING");
+                    setSubmitState(true);
+                    break;
+                case "DELIVERED":
+                    setVoucherStatus("DELIVERED");
+                    setSubmitState(true);
+                    break;
+                default:
+                    console.error("something went wrong with the status");
+            }
+        } else {
+            setError(findError);
+        }
+    }
 
 
     const submitForm = async (voucherCode, details) => {
@@ -235,40 +274,7 @@ function App() {
 
     }
 
-    const checkVoucherStatus = async (code) => {
-
-        const { voucher, findError } = await ValidateVoucher(code);
-        if (!findError) { //! !findError bc I have no idea if its null or undefined
-            setVoucherCode(code);
-            setReceiverInfo({
-                block: voucher.block,
-                floor: voucher.floor,
-                receiver: voucher.receiver,
-                phone: voucher.phone,
-            });
-            switch (voucher.status) { //? There is probably a better way to do this
-                case "PENDING":
-                    setVoucherStatus("PENDING");
-                    break;
-                case "SUBMITTED":
-                    setVoucherStatus("SUBMITTED");
-                    setSubmitState(true);
-                    break;
-                case "DELIVERING":
-                    setVoucherStatus("DELIVERING");
-                    setSubmitState(true);
-                    break;
-                case "DELIVERED":
-                    setVoucherStatus("DELIVERED");
-                    setSubmitState(true);
-                    break;
-                default:
-                    console.error("something went wrong with the status");
-            }
-        } else {
-            setError(findError);
-        }
-    }
+    
 
     const handleCloseError = () => {
         setError("");
