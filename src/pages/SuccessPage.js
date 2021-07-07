@@ -8,7 +8,6 @@ import WinnerInfo from "../images/ic_winner_information@3x.png"
 import StatusInfo from "../images/ic_delivery_status@3x.png"
 import CongratsImg from "../images/img_congratulations@3x.png";
 
-import ChangeLanguage from "../components/ChangeLanguage";
 
 import { useTranslation } from "react-i18next";
 import "../i18n.js";
@@ -43,7 +42,9 @@ export default function SuccessPage({ receiverInfo, voucherStatus, productName, 
 
     return (
         <div>
-            <ChangeLanguage />
+
+            
+
             <div className={theme.background}>
 
                 <div className="container">

@@ -6,20 +6,20 @@ import { useTranslation } from "react-i18next";
 import "../i18n.js";
 
 
-export default function ChangeLanguage({ languageChange }) {
+export default function ChangeLanguage({ language, languageChange, theme }) {
 
 
     const { t } = useTranslation();
 
-    const buttonChange = (lng) => {
-        languageChange(lng);
-    }
+   // if language then highlight
 
-    //highlight whichever button is right
+    //TODO highlight whichever button is right
     return (
-        <div>
-            <Button onClick={() => buttonChange("en")}>EN</Button>
-            <Button onClick={() => buttonChange("cn")}>Chinese</Button>
+        <div className={theme.header}>
+            <div> 
+                <Button className={theme.headerButton} onClick={() => languageChange("en")}>EN</Button>
+                <Button className={theme.headerButton} onClick={() => languageChange("cn")}>简</Button>
+            </div>
         </div>
     );
 

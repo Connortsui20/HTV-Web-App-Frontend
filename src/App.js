@@ -9,11 +9,13 @@ import FormPage from './pages/FormPage';
 import SuccessPage from './pages/SuccessPage';
 import NoPageFound from './pages/NoPageFound';
 import ErrorPage from './pages/ErrorPage';
+import ChangeLanguage from "./components/ChangeLanguage";
+
 
 import { useRoutes, A, navigate } from "hookrouter";
 
 import { useTranslation } from "react-i18next";
-import i18n from "./i18n.js";
+import "./i18n.js";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -64,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#EDF4FD",
     },
 
-    title: { 
+    title: {
         display: "flex",
         fontWeight: "450",
         fontSize: theme.spacing(3),
@@ -124,19 +126,30 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(10, 0),
     },
 
+    header: {
+        padding: theme.spacing(2,5),
+        height: theme.spacing(5),
+        textAlign: "right",
+    },
+
+    headerButton: {
+        backgroundColor: "green",
+        margin: theme.spacing(0, 2),
+    },
+
 }));
 
 
-    /********************************************************************************************/
+/********************************************************************************************/
 
-    
+
 function App() {
 
     const { t, i18n } = useTranslation();
-    
+
     const languageChange = (lng) => {
         i18n.changeLanguage(lng);
-        console.log(i18n.language);
+        setLanguage(i18n.language);
     }
 
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -147,11 +160,13 @@ function App() {
     const [productImage, setProductImage] = useState("");
     const [productName, setProductName] = useState("");
     const [submitState, setSubmitState] = useState(false);
-    
+
     const [voucherCode, setVoucherCode] = useState("");
     const [voucherStatus, setVoucherStatus] = useState("");
 
     const [error, setError] = useState("");
+
+    const [language, setLanguage] = useState("en"); //default en for now
 
 
     const checkVoucherStatus = async (code) => {
@@ -228,17 +243,19 @@ function App() {
                             code={code} checkVoucherStatus={checkVoucherStatus}
                             voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
                             productName={productName} productImage={productImage}
-                            languageChange={languageChange} theme={theme} 
+                            language={language} theme={theme}
                         /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus}
-                            productName={productName} productImage={productImage} theme={theme} />)}
+                            productName={productName} productImage={productImage}
+                            language={language} theme={theme} />)}
             </div>,
-        "/error": () => <ErrorPage />,
+        "/error": () => <ErrorPage language={language}/>,
     };
 
     const routeResult = useRoutes(routes); //hook for hookrouter, routes are states that get changed by routeResult
 
     return (
         <div className="App">
+            <ChangeLanguage language={language} languageChange={languageChange} theme={theme} />
             <A href={`/voucher/${voucherCode}`}></A>
             {routeResult || <NoPageFound />}
         </div>
