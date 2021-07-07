@@ -12,6 +12,8 @@ import ErrorPage from './pages/ErrorPage';
 
 import { useRoutes, A, navigate } from "hookrouter";
 
+import { useTranslation } from "react-i18next";
+import i18n from "./i18n.js";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -130,13 +132,20 @@ const useStyles = makeStyles((theme) => ({
     
 function App() {
 
+    const { t, i18n } = useTranslation();
+    
+    const languageChange = (lng) => {
+        i18n.changeLanguage(lng);
+        console.log(i18n.language);
+    }
+
     const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     const theme = useStyles();
 
     const [receiverInfo, setReceiverInfo] = useState({ block: "", floor: "", receiver: "", phone: "", }); //for after the receiver has submitted successfully
     const [productImage, setProductImage] = useState("");
-    const [productName, setProductName] = useState("AirPods Pro");
+    const [productName, setProductName] = useState("");
     const [submitState, setSubmitState] = useState(false);
     
     const [voucherCode, setVoucherCode] = useState("");
@@ -219,13 +228,12 @@ function App() {
                             code={code} checkVoucherStatus={checkVoucherStatus}
                             voucherCode={voucherCode} submitState={submitState} submitForm={submitForm}
                             productName={productName} productImage={productImage}
-                            theme={theme}
+                            languageChange={languageChange} theme={theme} 
                         /> </div>) : (<SuccessPage receiverInfo={receiverInfo} voucherStatus={voucherStatus}
                             productName={productName} productImage={productImage} theme={theme} />)}
             </div>,
         "/error": () => <ErrorPage />,
     };
-
 
     const routeResult = useRoutes(routes); //hook for hookrouter, routes are states that get changed by routeResult
 

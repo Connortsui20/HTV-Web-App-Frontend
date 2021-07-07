@@ -10,7 +10,13 @@ import Select from '@material-ui/core/Select';
 import DeliveryInfo from "../images/ic_delivery_information@3x.png"
 import WinnerInfo from "../images/ic_winner_information@3x.png"
 
+import { useTranslation } from "react-i18next";
+import "../i18n.js";
+
+
 export default function ReceiverForm({ voucherCode, productName, submitForm, theme }) {
+
+    const { t } = useTranslation();
 
     const [details, setDetails] = useState({ block: "", floor: "", receiver: "", phone: "", });
 
@@ -26,11 +32,11 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
 
             <div>
                 <div className={theme.titleMargin}>
-                    <Typography className={theme.title}>{"Congratulations!"}</Typography>
-                    <Typography className={theme.title}>{`Lucky draw wins ${productName}.`}</Typography>
+                    <Typography className={theme.title}>{t("Congratulations")}</Typography>
+                    <Typography className={theme.title}>{t("Gift Name")} {productName}</Typography>
                 </div>
                 <div className={theme.titleMargin}>
-                    <Typography className={theme.title}>{"Please fill in the following information to arrange delivery to you."}</Typography>
+                    <Typography className={theme.title}>{t("Fill in Form")}</Typography>
                 </div>
             </div>
 
@@ -39,13 +45,13 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                 <div>
                     <div className={theme.formHeader}>
                         <img className={theme.icon} src={DeliveryInfo} alt="Delivery Info" />
-                        <Typography className={theme.formTitle}>{"Delivery information"}</Typography>
+                        <Typography className={theme.formTitle}>{t("Delivery Information")}</Typography>
                     </div>
 
                     <div className={theme.form}>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Building Block *"}</Typography>
+                                <Typography className={theme.formTextTitle}>{t("Building Block")}</Typography>
                             </div>
                             <div> <FormControl required className={theme.formText}>
                                 
@@ -55,15 +61,15 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                                     value={details.block}
                                     onChange={event => setDetails({ ...details, block: event.target.value })}
                                     className={theme.formInput} >
-                                    <MenuItem value={"EAST"}>East</MenuItem>
-                                    <MenuItem value={"WEST"}>West</MenuItem>
+                                    <MenuItem value={"EAST"}>{t("East")}</MenuItem>
+                                    <MenuItem value={"WEST"}>{t("West")}</MenuItem>
                                 </Select>
                             </FormControl>
                             </div>
                         </div>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Floor *"}</Typography>
+                                <Typography className={theme.formTextTitle}>{t("Floor")}</Typography>
                             </div>
                             <div >
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
@@ -77,13 +83,13 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                 <div>
                     <div className={theme.formHeader}>
                         <img className={theme.icon} src={WinnerInfo} alt="Delivery Info" />
-                        <Typography className={theme.formTitle}>{"Winner information"}</Typography>
+                        <Typography className={theme.formTitle}>{t("Winner Information")}</Typography>
                     </div>
 
                     <div className={theme.form}>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Name *"}</Typography>
+                                <Typography className={theme.formTextTitle}>{t("Name")}</Typography>
                             </div>
                             <div>
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
@@ -93,7 +99,7 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                         </div>
                         <div className={theme.formEntry}>
                             <div>
-                                <Typography className={theme.formTextTitle}>{"Phone *"}</Typography>
+                                <Typography className={theme.formTextTitle}>{t("Phone")}</Typography>
                             </div>
                             <div>
                                 <TextField required className={theme.formText} InputProps={{ className: theme.formInput }}
@@ -107,9 +113,9 @@ export default function ReceiverForm({ voucherCode, productName, submitForm, the
                 <div className={theme.buttonBackground}>
                     {(details.block !== "" && details.floor !== "" && details.receiver !== "" && details.phone !== "")
                         ? (<Button className={theme.button} type="submit" value="Login" variant="contained">
-                            <Typography variant="h6">Submit Form</Typography></Button>)
+                            <Typography variant="h6">{t("Submit Form")}</Typography></Button>)
                         : (<Button className={theme.emptyButton} variant="contained">
-                            <   Typography variant="h6">Submit Form</Typography></Button>)}
+                            <   Typography variant="h6">{t("Submit Form")}</Typography></Button>)}
                 </div>
 
             </form>

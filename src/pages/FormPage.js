@@ -1,13 +1,19 @@
 import ReceiverForm from "../components/ReceiverForm";
 import ErrorPopup from "../components/ErrorPopup";
+import ChangeLanguage from "../components/ChangeLanguage";
 
 import CongratsImg from "../images/img_congratulations@3x.png";
 
 import { Typography } from "@material-ui/core";
 
+import { useTranslation } from "react-i18next";
+import "../i18n.js";
 
-export default function FormPage({ error, handleCloseError, code, checkVoucherStatus, voucherCode, submitForm, productName, productImage, theme }) {
 
+export default function FormPage({ error, handleCloseError, code, checkVoucherStatus, voucherCode, submitForm, productName, productImage, languageChange, theme }) {
+
+    const { t } = useTranslation();
+    
     if (!voucherCode) {
         checkVoucherStatus(code);
     }
@@ -15,6 +21,7 @@ export default function FormPage({ error, handleCloseError, code, checkVoucherSt
     return (
         <div>
             <ErrorPopup error={error} handleCloseError={handleCloseError} />
+            <ChangeLanguage languageChange={languageChange}/>
             {(voucherCode) ? (
                 <div className={theme.background}>
                     <div className="container">
@@ -33,7 +40,7 @@ export default function FormPage({ error, handleCloseError, code, checkVoucherSt
                 <div>
                     <div>
                         <Typography className={theme.waiting} variant="h5">
-                            Please Wait
+                            {t("Loading")}
                         </Typography>
                     </div>
                     <div className="loader"></div>

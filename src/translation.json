@@ -1,0 +1,75 @@
+{
+
+
+    "en": {
+        "translation": {
+
+            "Congratulations": "Congratulations",
+            "Gift Name": "Lucky draw wins:",
+            "Fill in Form": "Please fill in the following information to arrange delivery to you",
+            "Incorrect Login": "Incorrect Login Details",
+            
+            "Delivery Information": "Delivery Information",
+            "Building Block": "Building Block *",
+            "East": "East",
+            "West": "West",
+            "Floor": "Floor *",
+
+            "Winner Information": "Winner Information",
+            "Name": "Name *",
+            "Phone": "Phone *",
+
+            "Submit Form": "Submit Form",
+
+            "Delivery Status": "Delivery Status",
+            "Submitted": "Your gift has been submitted . . .",
+            "Delivering": "Your gift is shipping . . .",
+            "Delivered": "Your gift has been delivered!",
+
+            "Loading": "Please Wait",
+
+            "Error": "Error",
+            "Ok": "Ok"
+
+        }
+
+    },
+
+
+    "cn" : {
+        "translation": {
+
+            "Congratulations": "Congratulationsx",
+            "Gift Name": "Lucky draw wins:x",
+            "Fill in Form": "Please fill in the following information to arrange delivery to youx",
+            "Incorrect Login": "Incorrect Login Detailsx",
+            
+            "Delivery Information": "Delivery Informationx",
+            "Building Block": "Building Block *x",
+            "East": "Eastx",
+            "West": "Westx",
+            "Floor": "Floor *x",
+
+            "Winner Information": "Winner Informationx",
+            "Name": "Name *x",
+            "Phone": "Phone *x",
+
+            "Submit Form": "Submit Formx",
+
+            "Delivery Status": "Delivery Statusx",
+            "Submitted": "Your gift has been submitted . . .x",
+            "Delivering": "Your gift is shipping . . .x",
+            "Delivered": "Your gift has been delivered!x",
+
+            "Loading": "Please Waitx",
+
+            "Error": "Errorx",
+            "Ok": "Okx"
+
+        }
+
+    }
+
+
+}
+
