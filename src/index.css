@@ -29,7 +29,7 @@ body {
 .container {
     display: grid;
     position: relative;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(12, 1fr);
 }
 
 .container .parent {
@@ -39,9 +39,9 @@ body {
 }
 
 .container .child {
-    grid-column: 3 / span 2;
+    grid-column: 5 / span 4;
     grid-row: 1; 
-    padding-top: 237%; 
+    padding-top: 225%; 
     z-index: 2; 
 }
 

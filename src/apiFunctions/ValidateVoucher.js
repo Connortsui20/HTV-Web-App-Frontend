@@ -3,13 +3,13 @@ import axios from 'axios';
 
 export default async function ValidateVoucher(code) {
 
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URLn;
 
     let voucher = {};
     let findError = null;
 
     try {
-        const { data } = await axios.get(`${BACKEND_URL}/vouchers/${code}`);
+        const { data } = await axios.get(`${BACKEND_URL}/vouchers/findvoucher/${code}`);
         //console.log("%c Voucher Valid: ", "color: green; font-weight: bold", data);
         voucher = data;
     } catch (error) {
