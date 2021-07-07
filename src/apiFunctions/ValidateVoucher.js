@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default async function ValidateVoucher(code) {
 
-    const BACKEND_URL = process.env.REACT_APP_BACKEND_URLn;
+    const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
     let voucher = {};
     let findError = null;

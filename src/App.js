@@ -188,8 +188,8 @@ function App() {
                 receiver: voucher.receiver,
                 phone: voucher.phone,
             });
-            setProductName(voucher.productName);
-            setProductImage(BACKEND_URL + voucher.image.url)
+            setProductName(voucher.product.productName);
+            setProductImage(BACKEND_URL + voucher.product.image.url)
             switch (voucher.status) { //? There is probably a better way to do this
                 case "PENDING":
                     setVoucherStatus("PENDING");
