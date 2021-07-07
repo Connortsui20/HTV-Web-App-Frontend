@@ -1,6 +1,4 @@
 {
-
-
     "en": {
         "translation": {
 
@@ -30,46 +28,39 @@
 
             "Error": "Error",
             "Ok": "Ok"
-
         }
-
     },
-
 
     "cn" : {
         "translation": {
 
-            "Congratulations": "Congratulations!x",
-            "Gift Name": "Lucky draw wins:x",
-            "Fill in Form": "Please fill in the following information to arrange delivery to youx",
-            "Incorrect Login": "Incorrect Login Detailsx",
+            "Congratulations": "恭嘉!",
+            "Gift Name": "抽奖赢得了",
+            "Fill in Form": "请填写以下资料以安排运输",
+            "Incorrect Login": "错误等登入资料",
             
-            "Delivery Information": "Delivery Informationx",
-            "Building Block": "Building Block *x",
-            "East": "Eastx",
-            "West": "Westx",
-            "Floor": "Floor *x",
+            "Delivery Information": "运输资料",
+            "Building Block": "大厦",
+            "East": "东座",
+            "West": "西座",
+            "Floor": "楼层",
 
-            "Winner Information": "Winner Informationx",
-            "Name": "Name *x",
-            "Phone": "Phone *x",
+            "Winner Information": "个人资料",
+            "Name": "姓名*",
+            "Phone": "电话*",
 
-            "Submit Form": "Submit Formx",
+            "Submit Form": "提交",
 
-            "Delivery Status": "Delivery Statusx",
-            "Submitted": "Your gift has been submitted . . .x",
-            "Delivering": "Your gift is shipping . . .x",
-            "Delivered": "Your gift has been delivered!x",
+            "Delivery Status": "运输状况",
+            "Submitted": "已提交运输资料",
+            "Delivering": "运送中",
+            "Delivered": "已送达",
 
-            "Loading": "Please Waitx",
+            "Loading": "请稍等",
 
-            "Error": "Errorx",
-            "Ok": "Okx"
-
+            "Error": "错误",
+            "Ok": "OK"
         }
-
     }
-
-
 }
 
