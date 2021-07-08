@@ -8,7 +8,7 @@ i18n
     .init({
         resources: translation,
         //lng: "en", // if you're using a language detector, do not define the lng option
-        fallbackLng: "en",
+        fallbackLng: "cn",
         interpolation: {
             escapeValue: false
         }
