@@ -8,7 +8,7 @@ export default function ErrorPage({language}) {
 
     if (language.includes("en")) {
         errorPicture = WrongRedemptionEn;
-    } else if (language.includes("cn")) {
+    } else {
         errorPicture = WrongRedemptionCn;
     }
 
