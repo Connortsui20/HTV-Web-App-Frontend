@@ -11,9 +11,7 @@ export default function ChangeLanguage({ language, languageChange, theme }) {
 
     const { t } = useTranslation();
 
-    // if language then highlight
 
-    //TODO highlight whichever button is right
     //! There is definitely a better way to do this I just don't know how
     return (
         <div className={theme.header}>
