@@ -40,21 +40,21 @@
             "Incorrect Login": "错误等登入资料",
             
             "Delivery Information": "运输资料",
-            "Building Block": "大厦",
+            "Building Block": "大厦 *",
             "East": "东座",
             "West": "西座",
-            "Floor": "楼层",
+            "Floor": "楼层 *",
 
             "Winner Information": "个人资料",
-            "Name": "姓名*",
-            "Phone": "电话*",
+            "Name": "姓名 *",
+            "Phone": "电话 *",
 
             "Submit Form": "提交",
 
             "Delivery Status": "运输状况",
             "Submitted": "已提交运输资料",
             "Delivering": "运送中",
-            "Delivered": "已送达",
+            "Delivered": "已送达!",
 
             "Loading": "请稍等",
 

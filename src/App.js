@@ -174,7 +174,7 @@ function App() {
 
     const [error, setError] = useState("");
 
-    const [language, setLanguage] = useState("cn"); //default cn for now, //? Might be redundant not sure
+    const [language, setLanguage] = useState(i18n.language); //default cn for now, //? Might be redundant not sure
 
 
     const checkVoucherStatus = async (code) => {
