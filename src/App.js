@@ -176,7 +176,6 @@ function App() {
 
     const [language, setLanguage] = useState(i18n.language); //default cn for now, //? Might be redundant not sure
 
-
     const checkVoucherStatus = async (code) => {
 
         const { voucher, findError } = await ValidateVoucher(code);

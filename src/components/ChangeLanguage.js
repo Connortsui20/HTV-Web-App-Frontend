@@ -18,7 +18,7 @@ export default function ChangeLanguage({ language, languageChange, theme }) {
     return (
         <div className={theme.header}>
             <div>
-                {(language === "cn") ?
+                {(language.includes("cn")) ?
                     (<div>
                         <Button className={theme.headerButtonTrue} size="large" onClick={() => languageChange("cn")}>简</Button>
                         <Button className={theme.headerButtonFalse} size="large" onClick={() => languageChange("en")}>EN</Button> </div>)

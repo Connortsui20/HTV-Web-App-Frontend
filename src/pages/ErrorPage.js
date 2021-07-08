@@ -6,9 +6,9 @@ export default function ErrorPage({language}) {
 
     let errorPicture = "";
 
-    if (language === "en") {
+    if (language.includes("en")) {
         errorPicture = WrongRedemptionEn;
-    } else if (language === "cn") {
+    } else if (language.includes("cn")) {
         errorPicture = WrongRedemptionCn;
     }
 
