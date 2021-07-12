@@ -127,22 +127,22 @@ const useStyles = makeStyles((theme) => ({
     },
 
     header: {
-        padding: theme.spacing(2,3),
+        padding: theme.spacing(0,3),
         textAlign: "right",
     },
 
     headerButtonTrue: { //! This is a really bad way of doing this but I don't know how else to
         color: "#1F48B2",
         fontWeight: "800",
-        fontSize: theme.spacing(4),
-        margin: theme.spacing(0, 1),
+        fontSize: theme.spacing(3),
+        //margin: theme.spacing(0, 1),
     },
 
     headerButtonFalse: {
         color: "black",
         fontWeight: "400",
-        fontSize: theme.spacing(4),
-        margin: theme.spacing(0, 1),
+        fontSize: theme.spacing(3),
+        //margin: theme.spacing(0, 1),
     },
 
 }));
@@ -174,7 +174,7 @@ function App() {
 
     const [error, setError] = useState("");
 
-    const [language, setLanguage] = useState(i18n.language); //default cn for now, //? Might be redundant not sure
+    const [language, setLanguage] = useState(i18n.language);
 
     const checkVoucherStatus = async (code) => {
 
